@@ -4,3 +4,4 @@ SMODS.Atlas({
     px = 34,
     py = 34,
 })
+StrangeLib = { dynablind = SMODS.load_file("dynablind.lua")() }

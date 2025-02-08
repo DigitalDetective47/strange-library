@@ -1,0 +1,13 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Make blind score UI use dynamic text
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={text = number_format(blind_amt), scale = score_number_scale(0.9, blind_amt), colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.RED, shadow =  not disabled}}"
+position = "at"
+payload = "{n=G.UIT.T, config={ref_table = StrangeLib.dynablind.blind_choice_score_texts, ref_value = type, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.RED, shadow =  not disabled, func = 'StrangeLib_blind_UI_scale'}}"
+match_indent = true
