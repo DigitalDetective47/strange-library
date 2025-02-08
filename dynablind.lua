@@ -8,6 +8,17 @@ function reset_blinds()
     StrangeLib.dynablind.update_blind_scores()
 end
 
+local reroll_boss_hook = G.FUNCS.reroll_boss
+function G.FUNCS.reroll_boss(e)
+    reroll_boss_hook(e)
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            StrangeLib.dynablind.update_blind_scores({ Boss = true })
+            return true
+        end
+    }))
+end
+
 return {
     blind_choice_scores = {},
     blind_choice_score_texts = {},
