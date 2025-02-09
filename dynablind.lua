@@ -60,7 +60,7 @@ return {
                     number_format(StrangeLib.dynablind.blind_choice_scores[blind_choice])
             end
         end
-        if G.GAME.blind and which[G.GAME.blind_on_deck] then
+        if G.GAME.blind.chips ~= 0 and which[G.GAME.blind_on_deck] then
             G.GAME.blind.chips = StrangeLib.dynablind.get_blind_score(G.GAME.blind)
             G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
             G.E_MANAGER:add_event(Event({
