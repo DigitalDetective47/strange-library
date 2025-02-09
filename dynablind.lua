@@ -39,11 +39,7 @@ return {
                 found[blind_choice] = true
             end
         end
-        if #found == 0 then
-            return
-        else
             return found
-        end
     end,
     get_blind_score = function(blind, base)
         G.GAME.modifiers.scaling = G.GAME.modifiers.scaling or 0
