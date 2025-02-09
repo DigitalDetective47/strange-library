@@ -39,7 +39,7 @@ return {
                 found[blind_choice] = true
             end
         end
-            return found
+        return found
     end,
     get_blind_score = function(blind, base)
         G.GAME.modifiers.scaling = G.GAME.modifiers.scaling or 0
@@ -63,6 +63,15 @@ return {
         if G.GAME.blind and which[G.GAME.blind_on_deck] then
             G.GAME.blind.chips = StrangeLib.dynablind.get_blind_score(G.GAME.blind)
             G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if G.GAME.chips >= G.GAME.blind.chips then
+                        G.STATE = G.STATES.NEW_ROUND
+                        G.STATE_COMPLETE = false
+                    end
+                    return true
+                end
+            }))
         end
     end
 }
