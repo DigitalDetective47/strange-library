@@ -42,7 +42,7 @@ return {
         return found
     end,
     get_blind_score = function(blind, base)
-        G.GAME.modifiers.scaling = G.GAME.modifiers.scaling or 0
+        G.GAME.modifiers.scaling = G.GAME.modifiers.scaling or 1
         base = base or SMODS.get_blind_amount(G.GAME.round_resets.blind_ante) * G.GAME.starting_params.ante_scaling
         if blind.score then
             return blind:score(base)
