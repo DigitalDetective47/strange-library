@@ -19,6 +19,14 @@ function G.FUNCS.reroll_boss(e)
     }))
 end
 
+local set_blind_hook = Blind.set_blind
+function Blind:set_blind(blind, reset, silent)
+    if not reset then
+        self.score = blind and blind.score
+    end
+    set_blind_hook(self, blind, reset, silent)
+end
+
 return {
     blind_choice_scores = {},
     blind_choice_score_texts = {},
