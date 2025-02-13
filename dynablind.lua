@@ -27,6 +27,12 @@ function Blind:set_blind(blind, reset, silent)
     set_blind_hook(self, blind, reset, silent)
 end
 
+local start_run_hook = Game.start_run
+function Game:start_run(args)
+    start_run_hook(self, args)
+    StrangeLib.dynablind.update_blind_scores()
+end
+
 return {
     blind_choice_scores = {},
     blind_choice_score_texts = {},
