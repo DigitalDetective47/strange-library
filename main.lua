@@ -42,3 +42,10 @@ else
         return compare(x, op, y)
     end
 end
+
+function StrangeLib.bulk_add(dest, src)
+    local old_length = #dest
+    for index, item in ipairs(src) do
+        dest[old_length + index] = item
+    end
+end
