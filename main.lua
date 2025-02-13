@@ -49,3 +49,5 @@ function StrangeLib.bulk_add(dest, src)
         dest[old_length + index] = item
     end
 end
+
+SMODS.load_file("fcalc.lua")()
