@@ -20,5 +20,5 @@ function SMODS.calculate_individual_effect(effect, scored_card, key, amount, fro
         update_hand_text({ delay = 0 }, { chips = hand_chips, mult = mult })
         return true
     end
-    calculate_individual_effect_hook(effect, scored_card, key, amount, from_edition)
+    return calculate_individual_effect_hook(effect, scored_card, key, amount, from_edition)
 end
