@@ -11,3 +11,15 @@ pattern = "{n=G.UIT.T, config={text = number_format(blind_amt), scale = score_nu
 position = "at"
 payload = "{n=G.UIT.T, config={ref_table = StrangeLib.dynablind.blind_choice_score_texts, ref_value = type, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.RED, shadow =  not disabled, func = 'StrangeLib_blind_UI_scale'}}"
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS AntePreview "main.lua"]'
+pattern = '''local blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante + 1)
+    * blind.mult * G.GAME.starting_params.ante_scaling'''
+position = "at"
+payload = '''local old_blind_ante = G.GAME.round_resets.blind_ante
+G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante + 1
+local blind_amt = StrangeLib.dynablind.get_blind_score(blind)
+G.GAME.round_resets.blind_ante = old_blind_ante'''
+match_indent = true
