@@ -1,11 +1,17 @@
+StrangeLib = {}
 SMODS.Atlas({
     key = "modicon",
     path = "icon.png",
     px = 34,
     py = 34,
 })
-StrangeLib = { dynablind = SMODS.load_file("dynablind.lua")() }
 
+SMODS.load_file("dynablind.lua")()
+
+---@param x number | table
+---@param op "==" | "~=" | "<" | "<=" | ">" | ">="
+---@param y number | table
+---@return boolean
 local function compare(x, op, y)
     if op == "==" then
         return x == y
@@ -23,6 +29,13 @@ local function compare(x, op, y)
         sendErrorMessage('invalid operator "' .. op .. '"', "StrangeLib.safe_compare")
     end
 end
+
+---Compare two numbers safely when Talisman may or may not be present.
+---@param x number | table
+---@param op "==" | "~=" | "<" | "<=" | ">" | ">="
+---@param y number | table
+---@return boolean
+function StrangeLib.safe_compare(x, op, y) end
 
 if next(SMODS.find_mod("Talisman")) then
     function StrangeLib.safe_compare(x, op, y)
@@ -43,6 +56,10 @@ else
     end
 end
 
+---Append all elements of src to dest
+---@generic T
+---@param dest T[] the array to add to
+---@param src T[] list of items to append
 function StrangeLib.bulk_add(dest, src)
     local old_length = #dest
     for index, item in ipairs(src) do
@@ -52,6 +69,13 @@ end
 
 SMODS.load_file("fcalc.lua")()
 
+---@alias Pos { x: integer, y: integer }
+---@param base_key string used to generate the actual booster pack keys
+---@param normal_poses Pos[] atlas positions for normal booster packs
+---@param jumbo_poses Pos[] atlas positions for jumbo booster packs
+---@param mega_poses Pos[] atlas positions for mega booster packs
+---@param common_values table entries to be included in all booster packs
+---@param pack_size integer? the base size of packs; defaults to 3
 function StrangeLib.make_boosters(base_key, normal_poses, jumbo_poses, mega_poses, common_values, pack_size)
     pack_size = pack_size or 3
     for index, pos in ipairs(normal_poses) do
