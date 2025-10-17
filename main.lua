@@ -27,6 +27,7 @@ local function compare(x, op, y)
         return x >= y
     else
         sendErrorMessage('invalid operator "' .. op .. '"', "StrangeLib.safe_compare")
+        return false
     end
 end
 
@@ -35,24 +36,35 @@ end
 ---@param op "==" | "~=" | "<" | "<=" | ">" | ">="
 ---@param y number | table
 ---@return boolean
-function StrangeLib.safe_compare(x, op, y) end
+function StrangeLib.safe_compare(x, op, y)
+    ---@type number?
+    local num_x = tonumber(x)
+    ---@type number?
+    local num_y = tonumber(y)
+    if not num_x then
+        sendErrorMessage("cannot convert parameter x to number", "StrangeLib.safe_compare")
+        return false
+    elseif not num_y then
+        sendErrorMessage("cannot convert parameter y to number", "StrangeLib.safe_compare")
+        return false
+    end
+    return compare(num_x, op, num_y)
+end
 
 if next(SMODS.find_mod("Talisman")) then
     function StrangeLib.safe_compare(x, op, y)
-        x = to_big(x)
-        y = to_big(y)
-        return compare(x, op, y)
-    end
-else
-    function StrangeLib.safe_compare(x, op, y)
-        x = tonumber(x)
-        y = tonumber(y)
-        if not x then
+        ---@type (number | table)?
+        local big_x = to_big(x)
+        ---@type (number | table)?
+        local big_y = to_big(y)
+        if not big_x then
             sendErrorMessage("cannot convert parameter x to number", "StrangeLib.safe_compare")
-        elseif not y then
+            return false
+        elseif not big_y then
             sendErrorMessage("cannot convert parameter y to number", "StrangeLib.safe_compare")
+            return false
         end
-        return compare(x, op, y)
+        return compare(big_x, op, big_y)
     end
 end
 
