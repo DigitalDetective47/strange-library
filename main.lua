@@ -1,4 +1,4 @@
-StrangeLib = {}
+StrangeLib = SMODS.current_mod
 SMODS.Atlas({
     key = "modicon",
     path = "icon.png",
