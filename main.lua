@@ -6,8 +6,6 @@ SMODS.Atlas({
     py = 34,
 })
 
-SMODS.load_file("dynablind.lua")()
-
 ---@param x number | table
 ---@param op "==" | "~=" | "<" | "<=" | ">" | ">="
 ---@param y number | table
@@ -79,8 +77,6 @@ function StrangeLib.bulk_add(dest, src)
     end
 end
 
-SMODS.load_file("fcalc.lua")()
-
 ---@alias Pos { x: integer, y: integer }
 ---@param base_key string used to generate the actual booster pack keys
 ---@param normal_poses Pos[] atlas positions for normal booster packs
@@ -115,3 +111,6 @@ function StrangeLib.make_boosters(base_key, normal_poses, jumbo_poses, mega_pose
         SMODS.Booster(t)
     end
 end
+
+SMODS.load_file("dynablind.lua")()
+SMODS.load_file("fcalc.lua")()
