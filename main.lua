@@ -114,3 +114,4 @@ end
 
 SMODS.load_file("dynablind.lua")()
 SMODS.load_file("fcalc.lua")()
+SMODS.load_file("consumable.lua")()
