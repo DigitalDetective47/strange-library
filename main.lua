@@ -112,6 +112,17 @@ function StrangeLib.make_boosters(base_key, normal_poses, jumbo_poses, mega_pose
     end
 end
 
+function StrangeLib.load_compat()
+    ---@type Mod
+    for _, filename in ipairs(NFS.getDirectoryItems(SMODS.current_mod.path .. "/compat")) do
+        ---@type string?
+        local mod_id = filename:match("^(.*)%.lua$")
+        if mod_id and next(SMODS.find_mod(mod_id)) then
+            SMODS.load_file("compat/" .. filename)()
+        end
+    end
+end
+
 SMODS.load_file("dynablind.lua")()
 SMODS.load_file("fcalc.lua")()
 SMODS.load_file("consumable.lua")()
