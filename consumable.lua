@@ -3,8 +3,11 @@ StrangeLib.consumable = {}
 ---Modify cards with the tarot animation
 ---@param targets Card[] If this includes cards not held in hand, `modification` will be applied to them immediately<br>Cards held in hand will be animated according to the order they appear within this table
 ---@param modification fun(card: Card): nil
----@param deselect boolean? Whether to deselect all cards in hand once the animation completes<br>Defaults to false
+---@param deselect? boolean Whether to deselect all cards in hand once the animation completes<br>Defaults to true
 function StrangeLib.consumable.tarot_animation(targets, modification, deselect)
+    if deselect == nil then
+        deselect = true
+    end
     ---@type table<Card, true>
     local hand_set = {}
     for _, card in ipairs(G.hand.cards) do

@@ -113,7 +113,6 @@ function StrangeLib.make_boosters(base_key, normal_poses, jumbo_poses, mega_pose
 end
 
 function StrangeLib.load_compat()
-    ---@type Mod
     for _, filename in ipairs(NFS.getDirectoryItems(SMODS.current_mod.path .. "/compat")) do
         ---@type string?
         local mod_id = filename:match("^(.*)%.lua$")
