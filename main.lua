@@ -158,6 +158,21 @@ function StrangeLib.ltr(a, b)
     return a.T.x < b.T.x
 end
 
+---add new banned items for existing challenges
+---@param filename string should be the name of a json file containing the banlist data
+function StrangeLib.update_challenge_restrictions(filename)
+    local json_str, size = NFS.read(SMODS.current_mod.path .. "/" .. filename)
+    if type(size) == "string" then
+        sendErrorMessage(size)
+        return
+    end
+    for challenge, restrictions in pairs(JSON.decode(json_str --[[@as string]])) do
+        for category, banlist in pairs(restrictions) do
+            StrangeLib.bulk_add(SMODS.Challenges[challenge].restrictions[category], banlist)
+        end
+    end
+end
+
 SMODS.load_file("dynablind.lua")()
 SMODS.load_file("fcalc.lua")()
 SMODS.load_file("consumable.lua")()
