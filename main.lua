@@ -150,6 +150,14 @@ function StrangeLib.as_list(set)
     return ret
 end
 
+---Sorting function that sorts cards left to right
+---@param a Card
+---@param b Card
+---@return boolean
+function StrangeLib.ltr(a, b)
+    return a.T.x < b.T.x
+end
+
 SMODS.load_file("dynablind.lua")()
 SMODS.load_file("fcalc.lua")()
 SMODS.load_file("consumable.lua")()
