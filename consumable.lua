@@ -9,10 +9,7 @@ function StrangeLib.consumable.tarot_animation(targets, modification, deselect)
         deselect = true
     end
     ---@type table<Card, true>
-    local hand_set = {}
-    for _, card in ipairs(G.hand.cards) do
-        hand_set[card] = true
-    end
+    local hand_set = StrangeLib.as_set(G.hand.cards)
     ---@type Card[]
     local hand_targets = {}
     for _, target in ipairs(targets) do

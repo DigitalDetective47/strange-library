@@ -122,6 +122,34 @@ function StrangeLib.load_compat()
     end
 end
 
+---@generic T
+---@param list T[]
+---@return table<T, true> set
+function StrangeLib.as_set(list)
+    ---@type table<any, true>
+    local ret = {}
+    for _, item in ipairs(list) do
+        ret[item] = true
+    end
+    return ret
+end
+
+---note that the order of this list is unspecified
+---@generic T
+---@param set table<T, true>
+---@return T[] list
+function StrangeLib.as_list(set)
+    ---@type any[]
+    local ret = {}
+    ---@type integer
+    local size = 0
+    for item, _ in pairs(set) do
+        size = size + 1
+        ret[size] = item
+    end
+    return ret
+end
+
 SMODS.load_file("dynablind.lua")()
 SMODS.load_file("fcalc.lua")()
 SMODS.load_file("consumable.lua")()
