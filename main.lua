@@ -150,13 +150,19 @@ function StrangeLib.as_list(set)
     return ret
 end
 
----Sorting function that sorts cards left to right
----@param a Card
----@param b Card
----@return boolean
-function StrangeLib.ltr(a, b)
-    return a.T.x < b.T.x
+---Connvert a function that grabs a sorting key into a comparator compatible with `table.sort`
+---@generic T
+---@param key_func fun(key: T): number
+---@return fun(a: T, b: T): boolean
+function StrangeLib.key_to_comparator(key_func)
+    return function(a, b)
+        return key_func(a) < key_func(b)
+    end
 end
+
+---Sorting function that sorts cards left to right
+---@type fun(a: Card, b: Card): boolean
+StrangeLib.ltr = StrangeLib.key_to_comparator(function(card) return card.T.x end)
 
 ---add new banned items for existing challenges
 ---@param filename string should be the name of a json file containing the banlist data
@@ -176,9 +182,8 @@ end
 local back_apply_hook = Back.apply_to_run
 function Back:apply_to_run()
     back_apply_hook(self)
-    table.sort(G.handlist, function(a, b)
-        return G.GAME.hands[a].order < G.GAME.hands[b].order
-    end)
+    table.sort(G.handlist, StrangeLib.key_to_comparator(
+        function(hand_key) return G.GAME.hands[hand_key].order end))
 end
 
 SMODS.load_file("dynablind.lua")()
