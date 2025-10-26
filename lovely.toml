@@ -1,0 +1,13 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# fix planet discovery
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if (not v.config.softlock or G.GAME.hands[v.config.hand_type].played > 0) then"
+position = "at"
+payload = "if G.GAME.hands[v.config.hand_type].visible then"
+match_indent = true
