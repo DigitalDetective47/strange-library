@@ -173,6 +173,14 @@ function StrangeLib.update_challenge_restrictions(filename)
     end
 end
 
+local back_apply_hook = Back.apply_to_run
+function Back:apply_to_run()
+    back_apply_hook(self)
+    table.sort(G.handlist, function(a, b)
+        return G.GAME.hands[a].order < G.GAME.hands[b].order
+    end)
+end
+
 SMODS.load_file("dynablind.lua")()
 SMODS.load_file("fcalc.lua")()
 SMODS.load_file("consumable.lua")()
