@@ -117,8 +117,12 @@ end
 
 StrangeLib.consumable.use_templates = {} --templates to use for consumables' `can_use` fields
 
----@type fun(self: SMODS.Consumable, card: Card): boolean
-StrangeLib.consumable.use_templates.always_usable = G.P_CENTERS.c_black_hole.can_use
+---@param self SMODS.Consumable
+---@param card Card
+---@return boolean
+function StrangeLib.consumable.use_templates.always_usable(self, card)
+    return true
+end
 
 ---@param self SMODS.Consumable
 ---@param card Card
