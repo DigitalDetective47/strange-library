@@ -83,7 +83,7 @@ function StrangeLib.consumable.nope(card, colour)
                 backdrop_colour = colour,
                 align = (
                     G.STATE == G.STATES.TAROT_PACK
-                    or G.STATE == G.STATE.PLANET_PACK
+                    or G.STATE == G.STATES.PLANET_PACK
                     or G.STATE == G.STATES.SPECTRAL_PACK
                     or G.STATE == G.STATES.SMODS_BOOSTER_OPENED
                 ) and "tm" or "cm",
@@ -91,7 +91,7 @@ function StrangeLib.consumable.nope(card, colour)
                     x = 0,
                     y = (
                         G.STATE == G.STATES.TAROT_PACK
-                        or G.STATE == G.STATE.PLANET_PACK
+                        or G.STATE == G.STATES.PLANET_PACK
                         or G.STATE == G.STATES.SPECTRAL_PACK
                         or G.STATE == G.STATES.SMODS_BOOSTER_OPENED
                     ) and -0.2 or 0,
