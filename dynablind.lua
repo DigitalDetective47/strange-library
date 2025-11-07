@@ -96,3 +96,33 @@ function StrangeLib.dynablind.update_blind_scores(which)
         }))
     end
 end
+
+local hieroglyph_redeem_hook = G.P_CENTERS.v_hieroglyph.redeem or function(self, card)
+    ease_ante(-card.ability.extra)
+    G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+    G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - card.ability.extra
+
+    G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra
+    ease_hands_played(-card.ability.extra)
+end
+SMODS.Voucher:take_ownership("v_hieroglyph", {
+    redeem = function(self, card)
+        hieroglyph_redeem_hook(self, card)
+        StrangeLib.dynablind.update_blind_scores()
+    end
+}, true)
+
+local petroglyph_redeem_hook = G.P_CENTERS.v_petroglyph.redeem or function(self, card)
+    ease_ante(-card.ability.extra)
+    G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+    G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - card.ability.extra
+
+    G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra
+    ease_discard(-card.ability.extra)
+end
+SMODS.Voucher:take_ownership("v_petroglyph", {
+    redeem = function(self, card)
+        petroglyph_redeem_hook(self, card)
+        StrangeLib.dynablind.update_blind_scores()
+    end
+}, true)
