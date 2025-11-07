@@ -9,8 +9,8 @@
     "main_file": "main.lua",
     "badge_colour": "FF9E49",
     "badge_text_colour": "404040",
-    "version": "3.6.3",
+    "version": "3.6.4",
     "dependencies": [
-        "Steamodded (>=1.0.0~ALPHA-1228b-STEAMODDED)"
+        "Steamodded (>=1.0.0~BETA-0814a-STEAMODDED)"
     ]
 }
