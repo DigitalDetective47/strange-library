@@ -186,6 +186,28 @@ function Back:apply_to_run()
         function(hand_key) return G.GAME.hands[hand_key].order end))
 end
 
+---equivalent method to `assert()` that calls SMODS's logging functions instead of crashing
+---
+---if an error occurs, nothing is returned<br>
+---otherwise, returns all of its arguments
+---@generic S
+---@generic M
+---@generic DOTS
+---@param success S | nil | false
+---@param msg M | string
+---@param ... DOTS
+---@return S? success
+---@return M? msg
+---@return DOTS? ...
+---@see assert
+function StrangeLib.assert(success, msg, ...)
+    if success then
+        return success, msg, ...
+    else
+        sendErrorMessage(msg)
+    end
+end
+
 SMODS.load_file("dynablind.lua")()
 SMODS.load_file("fcalc.lua")()
 SMODS.load_file("consumable.lua")()
