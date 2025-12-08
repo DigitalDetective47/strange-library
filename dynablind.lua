@@ -87,7 +87,7 @@ function StrangeLib.dynablind.update_blind_scores(which)
         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
         G.E_MANAGER:add_event(Event({
             func = function()
-                if G.GAME.chips >= G.GAME.blind.chips then
+                if G.GAME.chips >= G.GAME.blind.chips and not G.STATES.NEW_ROUND then
                     G.STATE = G.STATES.NEW_ROUND
                     G.STATE_COMPLETE = false
                 end
