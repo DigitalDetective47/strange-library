@@ -211,3 +211,42 @@ end
 SMODS.load_file("dynablind.lua")()
 SMODS.load_file("fcalc.lua")()
 SMODS.load_file("consumable.lua")()
+
+---@param card Card
+---@param suit string
+local function suit_init(card, suit)
+    ---@type SMODS.Suit
+    local obj = SMODS.Suits[suit]
+    if not obj.strange then
+        return
+    end
+    if obj.config then
+        card.ability[suit] = SMODS.shallow_copy(obj.config)
+    end
+    if obj.set_ability then
+        obj:set_ability(card)
+    end
+end
+function StrangeLib.calculate(self, context)
+    if context.change_suit then
+        if context.old_suit then
+            context.other_card.ability[context.old_suit] = nil
+        end
+        suit_init(context.other_card, context.new_suit)
+    elseif context.playing_card_added then
+        for _, card in ipairs(context.cards) do
+            suit_init(card, card.base.suit)
+        end
+    end
+end
+
+function StrangeLib.process_loc_text()
+    G.E_MANAGER:add_event(Event { func = function()
+        for key, suit in pairs(SMODS.Suits) do
+            if suit.strange then
+                G.localization.descriptions.Other[key].name = localize(key, "suits_plural")
+            end
+        end
+        return true
+    end })
+end
