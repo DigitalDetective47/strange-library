@@ -8,7 +8,7 @@ dump_lua = true
 target = "functions/common_events.lua"
 pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
-payload = """if card.base and card.base.suit and SMODS.Suits[card.base.suit].calculate then
+payload = """if card.base and card.base.suit and card:is_suit(card.base.suit) and SMODS.Suits[card.base.suit].calculate then
     local suits = SMODS.Suits[card.base.suit]:calculate(card, context)
     if suits then
         ret.playing_card = SMODS.merge_effects({ suits, ret.playing_card })
@@ -24,7 +24,7 @@ pattern = """if specific_vars.nominal_chips then
     localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}
 end"""
 position = "at"
-payload = """if card and card.base and SMODS.Suits[card.base.suit].strange then
+payload = """if card and card.base and card:is_suit(card.base.suit) and SMODS.Suits[card.base.suit].strange then
     localize(SMODS.merge_defaults(SMODS.Suits[card.base.suit]:loc_vars(info_queue, card),
         { type = 'descriptions', set = 'Other', key = card.base.suit, nodes = desc_nodes }))
 else
@@ -40,7 +40,7 @@ pattern = """if specific_vars and _c.name ~= 'Stone Card' and specific_vars.nomi
     localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}
 end"""
 position = "at"
-payload = """if card and card.base and SMODS.Suits[card.base.suit].strange then
+payload = """if card and card.base and card:is_suit(card.base.suit) and SMODS.Suits[card.base.suit].strange then
     localize(SMODS.merge_defaults(SMODS.Suits[card.base.suit]:loc_vars(info_queue, card),
         { type = 'descriptions', set = 'Other', key = card.base.suit, nodes = desc_nodes }))
 else
@@ -56,7 +56,7 @@ pattern = """if specific_vars and specific_vars.nominal_chips and not self.repla
     localize { type = 'other', key = 'card_chips', nodes = desc_nodes, vars = { specific_vars.nominal_chips } }
 end"""
 position = "at"
-payload = """if card and card.base and SMODS.Suits[card.base.suit].strange then
+payload = """if card and card.base and card:is_suit(card.base.suit) and SMODS.Suits[card.base.suit].strange then
     localize(SMODS.merge_defaults(SMODS.Suits[card.base.suit]:loc_vars(info_queue, card),
         { type = 'descriptions', set = 'Other', key = card.base.suit, nodes = desc_nodes }))
 else
