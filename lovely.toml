@@ -11,3 +11,14 @@ pattern = "if (not v.config.softlock or G.GAME.hands[v.config.hand_type].played 
 position = "at"
 payload = "if SMODS.is_poker_hand_visible(v.config.hand_type) then"
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = """G.E_MANAGER:add_event(Event({
+trigger = 'immediate',
+func = (function() play_sound('chips2');return true end)
+}))"""
+position = "after"
+payload = "SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, hand_total = SMODS.calculate_round_score()})"
+match_indent = true
