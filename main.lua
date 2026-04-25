@@ -113,7 +113,7 @@ function StrangeLib.make_boosters(base_key, normal_poses, jumbo_poses, mega_pose
 end
 
 function StrangeLib.load_compat()
-    for _, filename in ipairs(NFS.getDirectoryItems(SMODS.current_mod.path .. "/compat")) do
+    for _, filename in ipairs(SMODS.NFS.getDirectoryItems(SMODS.current_mod.path .. "/compat")) do
         ---@type string?
         local mod_id = filename:match("^(.*)%.lua$")
         if mod_id and next(SMODS.find_mod(mod_id)) then
@@ -167,7 +167,7 @@ StrangeLib.ltr = StrangeLib.key_to_comparator(function(card) return card.T.x end
 ---add new banned items for existing challenges
 ---@param filename string should be the name of a json file containing the banlist data
 function StrangeLib.update_challenge_restrictions(filename)
-    local json_str, size = NFS.read(SMODS.current_mod.path .. "/" .. filename)
+    local json_str, size = SMODS.NFS.read(SMODS.current_mod.path .. "/" .. filename)
     if type(size) == "string" then
         sendErrorMessage(size)
         return
