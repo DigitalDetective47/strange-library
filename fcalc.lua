@@ -9,6 +9,8 @@ function SMODS.Scoring_Parameters.chips.calc_effect(self, effect, scored_card, k
     return chip_calc_hook(self, effect, scored_card, key, amount, from_edition)
 end
 
+SMODS.Attribute { key = "fchips" }
+
 StrangeLib.bulk_add(SMODS.Scoring_Parameters.chips.calculation_keys, { "f_mult", "fmult" })
 local mult_calc_hook = SMODS.Scoring_Parameters.mult.calc_effect
 function SMODS.Scoring_Parameters.mult.calc_effect(self, effect, scored_card, key, amount, from_edition)
@@ -19,6 +21,8 @@ function SMODS.Scoring_Parameters.mult.calc_effect(self, effect, scored_card, ke
     end
     return mult_calc_hook(self, effect, scored_card, key, amount, from_edition)
 end
+
+SMODS.Attribute { key = "fmult" }
 
 local calculate_individual_effect_hook = SMODS.calculate_individual_effect
 function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
