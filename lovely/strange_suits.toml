@@ -8,7 +8,7 @@ dump_lua = true
 target = "functions/common_events.lua"
 pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
-payload = """if card.base and card.base.suit and card:is_suit(card.base.suit) and SMODS.Suits[card.base.suit].calculate then
+payload = """if not context.check_enhancement and card.base and card.base.suit and card:is_suit(card.base.suit) and SMODS.Suits[card.base.suit].calculate then
     local suits = SMODS.Suits[card.base.suit]:calculate(card, context)
     if suits then
         ret.playing_card = SMODS.merge_effects({ suits, ret.playing_card })
