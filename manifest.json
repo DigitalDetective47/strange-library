@@ -1,0 +1,9 @@
+{
+    "name": "Strange_Library",
+    "description": "Library mod for functionality used by Strange Pencil",
+    "version_number": "4.2.2",
+    "dependencies": [
+        "Steamodded-Steamodded-1.1531.999999"
+    ],
+    "website_url": "https://github.com/DigitalDetective47/strange-library"
+}
